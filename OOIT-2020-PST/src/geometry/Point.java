@@ -1,4 +1,4 @@
-package geometry;
+ package geometry;
 
 public class Point {
 	private int x;
@@ -28,7 +28,7 @@ public class Point {
 		y = newY;
 	}
 	
-	public boolean getSelected() {
+	public boolean isSelected() {
 		return selected;
 	}
 	

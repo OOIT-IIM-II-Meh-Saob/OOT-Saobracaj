@@ -5,11 +5,41 @@ public class Point {
 	private int y;
 	private boolean selected;
 	
+	public Point() {
+		
+	}
+	
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public Point(int x, int y, boolean selected) {
+		this(x, y);
+		this.selected = selected;
+	}
+	
 	public double distance(int x, int y) {
 		int dX = this.x - x;
 		int dY = this.y - y;
 		double d = Math.sqrt(dX*dX + dY*dY);
 		return d;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + x + ", " + y + ")";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Point) {
+			Point temp = (Point) obj;
+			if (x == temp.x && y == temp.y) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public int getX() {

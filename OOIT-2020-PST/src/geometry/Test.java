@@ -73,6 +73,58 @@ public class Test {
 		// tacke gore levo pravougaonika r1 i povrsine kruga c1
 		l1.getEndPoint().setY((int) ((c1.getCenter().getX() - c1.getCenter().getY())
 				- (r1.getUpperLeft().getX() + c1.area())));
+		
+		// VEZBE 4
+		System.out.println(p1);
+		System.out.println(l1);
+		System.out.println(r1);
+		System.out.println(c1);
+		
+		p1 = p2;
+		
+		Point p3 = new Point(6, 7);
+		Line l3 = new Line(p3, new Point(12, 13));
+		Rectangle r3 = new Rectangle(new Point(p3.getX(), p3.getY()), 50, 100);
+		
+		p3.setX(50);
+		
+		System.out.println("X p3: " + p3.getX());
+		System.out.println("X startPoint l3: " + l3.getStartPoint().getX());
+		System.out.println("X upperLeft r3: " + r3.getUpperLeft().getX());
+		
+		Circle c3 = new Circle(new Point(), 10, true);
+		System.out.println(c3);
+		
+		// Kreirati pravougaonik r4 tako da ima iste koordinate kao pocetna tacka
+		// linije l3 i tako da se promenom x i y koordinata pocetne tacke linije l3
+		// ne promene x i y koordinate tacke gore levo pravougaonika r4
+		// Visina treba da bude jednaka duzini linije l3
+		// Sirina treba da bude jednaka povrsini pravougaonika r3 umanjenoj za povrsinu
+		// kruga c3
+		// Selected parametar postaviti na vrednost izraza konjukcije selected krajnje 
+		// tacke linije l3 i p3
+		Rectangle r4 = new Rectangle(new Point(l3.getStartPoint().getX(), l3.getStartPoint().getY()),
+				(int) (r3.area() - c3.area()), (int) l3.length(), 
+				l3.getEndPoint().isSelected() && p3.isSelected());
+		
+		System.out.println(r4 + ", selected: " + r4.isSelected());
+		
+		Point p5 = new Point(5, 6);
+		Point p6 = p5;
+		Point p7 = new Point(5, 6);
+		
+		System.out.println("p5 == p6: " + (p5 == p6));
+		System.out.println("p5 == p7: " + (p5 == p7));
+		
+		System.out.println("p5 equals p6: " + p5.equals(p6));
+		System.out.println("p5 equals p7: " + p5.equals(p7));
+		
+		System.out.println("p5 equals l3: " + p5.equals(l3));
+		
+		Line l4 = new Line(new Point(10, 11), new Point(12, 13));
+		Line l5 = new Line(new Point(10, 11), new Point(12, 13));
+		
+		System.out.println("l4 equals l5: " + l4.equals(l5));
 	}
 
 }

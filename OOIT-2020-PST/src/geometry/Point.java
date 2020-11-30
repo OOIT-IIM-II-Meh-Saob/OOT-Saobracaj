@@ -26,6 +26,10 @@ public class Point {
 		return d;
 	}
 	
+	public boolean contains(int x, int y) {
+		return this.distance(x, y) <= 2;
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ")";

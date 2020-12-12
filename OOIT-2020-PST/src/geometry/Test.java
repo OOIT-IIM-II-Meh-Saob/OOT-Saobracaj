@@ -1,5 +1,7 @@
 package geometry;
 
+import java.util.Arrays;
+
 public class Test {
 
 	public static void main(String[] args) {
@@ -8,20 +10,22 @@ public class Test {
 		p1.setX(3);
 		p1.setY(5);
 		p1.setSelected(true);
-
+		
 		System.out.println("X koordinata tacke p1 je: " + p1.getX());
 		System.out.println("Y koordinata tacke p1 je: " + p1.getY());
-		System.out.println("Parametar selected ima vrednost: " + p1.isSelected());
+		System.out.println("Selected je postavljeno na: " + p1.isSelected());
 		
 		Point p2 = new Point();
 		p2.setX(13);
 		p2.setY(15);
 		p2.setSelected(true);
 		
-		System.out.println("Udaljenost izmedju tacaka p1 i p2 je: " + p2.distance(p1.getX(), p1.getY()));
+		double distance = p1.distance(p2.getX(), p2.getY());
+		System.out.println("Udaljenost izmedju tacaka p1 i p2 je " + distance);
 		p1.setX(p2.getX());
-		System.out.println("Udaljenost izmedju tacaka p1 i p2 je: " + p2.distance(p1.getX(), p1.getY()));
-	
+		double distance2 = p1.distance(p2.getX(), p2.getY());
+		System.out.println("Udaljenost izmedju tacaka p1 i p2 je " + distance2);
+		
 		p1 = p2;
 		
 		// VEZBE 3
@@ -37,42 +41,49 @@ public class Test {
 		System.out.println("X p1: " + p1.getX());
 		
 		Line l2 = new Line();
+		l2.setStartPoint(p2);
 		l2.setEndPoint(new Point());
-		l2.getEndPoint().setY(12);
-		l2.getEndPoint().setX(10);
-		System.out.println("X endPoint l2: " + l2.getEndPoint().getX());
+		l2.getEndPoint().setY(20);
 		
+		// Izracunati i ispisati udaljenost pocetne tacke linije l1 i krajnje tacke linije l2
+		System.out.println(l1.getStartPoint().distance(l2.getEndPoint().getX(), l2.getEndPoint().getY()));
+	
 		Rectangle r1 = new Rectangle();
 		System.out.println("Area r1: " + r1.area());
-		r1.setUpperLeft(l1.getEndPoint());
+		
+		r1.setUpperLeft(l2.getEndPoint());
+		
+		r1.setHeight(10);
+		r1.setWidth(15);
+		System.out.println("Area r1: " + r1.area());
 		
 		Rectangle r2 = new Rectangle();
 		r2.setUpperLeft(new Point());
-		r2.getUpperLeft().setY(15);
-		r2.setHeight(10);
-		r2.setWidth(15);
+		r2.setHeight(5);
+		r2.setWidth(10);
 		System.out.println("Circumference r2: " + r2.circumference());
 		
 		Circle c1 = new Circle();
-		c1.setCenter(p2);
+		c1.setCenter(new Point());
 		System.out.println("\n\nX center c1: " + c1.getCenter().getX() +
-				"\n\tY center c1: " + c1.getCenter().getY() +
-				"\nRadius c1: " + c1.getR());
+				"\nY center c1: " + c1.getCenter().getY() + 
+				"\nR c1: " + c1.getR() +
+				"\nSelected c1: " + c1.isSelected());
 		
-		// Postaviti radijus kruga c1 na vrednost udaljenosti tacaka centra kruga
-		// c1 i pocetne tacke linije l1
+		// Postaviti radijus kruga c1 na vrednost udaljenosti centra kruga c1 i pocetne tacke linije l1
 		c1.setR((int) c1.getCenter().distance(l1.getStartPoint().getX(), l1.getStartPoint().getY()));
-	
-		// Postaviti parametar selected kruga c1 na vrednost izraza koji proverava
-		// da li je x centra kruga c1 vece od y koordinate tacke gore levo 
-		// pravougaonika r1
-		c1.setSelected(c1.getCenter().getX() > r1.getUpperLeft().getY());
+		System.out.println("R c1: " + c1.getR());
 		
-		// Postaviti y koordinatu krajnje tacke linije l1 na vrednost razlike 
-		// koordinata centra kruga c1 umanjene za vrednost zbira x koordinate 
-		// tacke gore levo pravougaonika r1 i povrsine kruga c1
-		l1.getEndPoint().setY((int) ((c1.getCenter().getX() - c1.getCenter().getY())
-				- (r1.getUpperLeft().getX() + c1.area())));
+		// Postaviti selected parametar kruga c1 na vrednost izraza koji proverava da li je x centra kruga c1 vece od y koordinate upperLeft tacke r1
+		c1.setSelected(c1.getCenter().getX() > r1.getUpperLeft().getY());
+		System.out.println(c1.isSelected());
+		
+		// Postaviti y koordinatu krajnje tacke l1 na vrednost razlike koordinata centra kruga c1 umanjene
+		// za vrednost zbira x koordinate upperLeft tacke pravougaonika r1 i povrsine kruga c1
+		l1.getEndPoint().setY((int) ((c1.getCenter().getX() - c1.getCenter().getY()) 
+				-
+				(r1.getUpperLeft().getX() + c1.area())));
+		System.out.println(l1.getEndPoint().getY());
 		
 		// VEZBE 4
 		System.out.println(p1);
@@ -154,6 +165,143 @@ public class Test {
 		
 		System.out.println("d1 area: " + d1.area());
 		System.out.println("d1 circumference: " + d1.circumference());
+		
+		//VEZBE 7
+		System.out.println("\nVezbe 7:");
+		System.out.println(p1);
+		p1.moveBy(5, 3);
+		System.out.println(p1);
+		p1.moveTo(5, 3);
+		System.out.println(p1);
+		
+		System.out.println(l1);
+		l1.moveBy(5, 3);
+		System.out.println(l1);
+		l1.moveTo(5, 3);
+		System.out.println(l1);
+		
+		System.out.println(r1);
+		r1.moveBy(5, 3);
+		System.out.println(r1);
+		r1.moveTo(5, 3);
+		System.out.println(r1);
+		
+		System.out.println(c1);
+		c1.moveBy(5, 3);
+		System.out.println(c1);
+		c1.moveTo(5, 3);
+		System.out.println(c1);
+		
+		System.out.println(d1);
+		d1.moveBy(5, 3);
+		System.out.println(d1);
+		d1.moveTo(5, 3);
+		System.out.println(d1);
+		
+		Shape d3 = new Donut(p1, 10, 2);
+		Shape p9 = new Point();
+		Shape l9 = l1;
+		Shape c9 = c1;
+		
+		//Shape[] shapes = new Shape[4];
+		Shape[] shapes = { d3, p9, l9, c9 };
+		System.out.println("\n");
+		for (int i = 0; i < shapes.length; i++) {
+			System.out.println(shapes[i]);
+		}
+		
+		for (int i = 0; i < shapes.length; i++) {
+			shapes[i].moveBy(1, 2);
+		}
+		
+		for (int i = 0; i < shapes.length; i++) {
+			System.out.println(shapes[i]);
+		}
+		
+		int[] ints = { 5, 2, 3, 4, 1 };
+		System.out.println("Nesortiran niz: ");
+		for (int i = 0; i < ints.length; i++) {
+			System.out.println(ints[i]);
+		}
+		
+		Arrays.sort(ints);
+		
+		System.out.println("Sortiran niz: ");
+		for (int i = 0; i < ints.length; i++) {
+			System.out.println(ints[i]);
+		}
+		
+		Point p10 = new Point(10, 10);
+		Point p20 = new Point(20, 20);
+		Point p30 = new Point(30, 30);
+		Point p40 = new Point(40, 40);
+		Point[] points = {p30, p10, p20, p40};
+		System.out.println("\nNesortiran niz: ");
+		for (int i = 0; i < points.length; i++) {
+			System.out.println(points[i]);
+		}
+		
+		Arrays.sort(points);
+		
+		System.out.println("Sortiran niz: ");
+		for (int i = 0; i < points.length; i++) {
+			System.out.println(points[i]);
+		}
+		
+		Line l10 = new Line(new Point(10, 10), new Point(100, 100));
+		Line l20 = new Line(new Point(20, 20), new Point(200, 200));
+		Line l30 = new Line(new Point(30, 30), new Point(300, 300));
+		Line l40 = new Line(new Point(40, 40), new Point(400, 400));
+		
+		Line[] lines = {l30, l10, l20, l40};
+		System.out.println("\nNesortiran niz: ");
+		for (int i = 0; i < lines.length; i++) {
+			System.out.println(lines[i]);
+		}
+		
+		Arrays.sort(lines);
+		
+		System.out.println("Sortiran niz: ");
+		for (int i = 0; i < lines.length; i++) {
+			System.out.println(lines[i]);
+		}
+		
+		Rectangle r10 = new Rectangle(p1, 10, 10);
+		Rectangle r20 = new Rectangle(p2, 20, 20);
+		Rectangle r30 = new Rectangle(p3, 30, 30);
+		
+		Rectangle[] rectangles = {r30, r10, r20};
+		System.out.println("\nNesortiran niz: ");
+		for (int i = 0; i < rectangles.length; i++) {
+			System.out.println(rectangles[i] + ", area: " + rectangles[i].area());
+		}
+		
+		Arrays.sort(rectangles);
+		
+		System.out.println("Sortiran niz: ");
+		for (int i = 0; i < rectangles.length; i++) {
+			System.out.println(rectangles[i] + ", area: " + rectangles[i].area());
+		}
+		
+		Circle c10 = new Circle(p1, 10);
+		Circle c20 = new Circle(p1, 20);
+		Circle c30 = new Circle(p1, 30);
+		Donut d40 = new Donut(p1, 30, 10);
+		
+		Circle[] circles = {c30, c10, c20, d40};
+		System.out.println("\nNesortiran niz: ");
+		for (int i = 0; i < circles.length; i++) {
+			System.out.println(circles[i] + ", area: " + circles[i].area());
+		}
+		
+		Arrays.sort(circles);
+		
+		System.out.println("Sortiran niz: ");
+		for (int i = 0; i < circles.length; i++) {
+			System.out.println(circles[i] + ", area: " + circles[i].area());
+		}
+		
+		
 	}
 
 }

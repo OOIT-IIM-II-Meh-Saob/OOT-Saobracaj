@@ -47,6 +47,25 @@ public class Line extends Shape{
 		return false;
 	}
 	
+	@Override
+	public int compareTo(Object o) {
+		if(o instanceof Line)
+			return (int) (this.length() - ((Line)o).length());
+		return 0;
+	}
+
+	@Override
+	public void moveBy(int byX, int byY) {
+		startPoint.moveBy(byX, byY);
+		endPoint.moveBy(byX, byY);
+	}
+
+	@Override
+	public void moveTo(int x, int y) {
+		// TODO Auto-generated method stub
+
+	}
+	
 	public Point getStartPoint() {
 		return startPoint;
 	}

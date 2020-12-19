@@ -1,5 +1,6 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Donut extends Circle {
@@ -30,14 +31,22 @@ public class Donut extends Circle {
 	}
 	
 	@Override
-	public double area() {
-		return super.area() - innerR * innerR * Math.PI;
+	public void draw(Graphics g) {
+		super.draw(g);
+		g.setColor(Color.black);
+		g.drawOval(center.getX()-innerR, center.getY()-innerR, 2*innerR, 2*innerR);
+		if (selected) {
+			g.setColor(Color.blue);
+			g.drawRect(this.getCenter().getX() - innerR - 2, this.getCenter().getY() - 2, 4, 4);
+			g.drawRect(this.getCenter().getX() + innerR - 2, this.getCenter().getY() - 2, 4, 4);
+			g.drawRect(this.getCenter().getX() - 2, this.getCenter().getY() - innerR - 2, 4, 4);
+			g.drawRect(this.getCenter().getX() - 2, this.getCenter().getY() + innerR - 2, 4, 4);
+		}
 	}
 	
 	@Override
-	public void draw(Graphics g) {
-		super.draw(g);
-		g.drawOval(center.getX() - innerR, center.getY() - innerR, 2*innerR, 2*innerR);
+	public double area() {
+		return super.area() - innerR * innerR * Math.PI;
 	}
 	
 	@Override
@@ -55,7 +64,7 @@ public class Donut extends Circle {
 			}*/
 			
 			Donut temp = (Donut) obj;
-			if (super.equals(new Circle(temp.center, temp.r)) && innerR == temp.innerR) {
+			if (super.equals(new Circle(temp.center, temp.r)) && temp.innerR == innerR) {
 				return true;
 			}
 		}

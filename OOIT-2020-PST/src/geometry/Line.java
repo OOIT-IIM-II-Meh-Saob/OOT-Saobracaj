@@ -1,5 +1,6 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Line extends Shape{
@@ -30,7 +31,14 @@ public class Line extends Shape{
 	
 	@Override
 	public void draw(Graphics g) {
+		g.setColor(Color.BLACK);
 		g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+		
+		if (selected) {
+			g.setColor(Color.BLUE);
+			g.drawRect(getStartPoint().getX() - 2, getStartPoint().getY() - 2, 4, 4);
+			g.drawRect(getEndPoint().getX() - 2, getEndPoint().getY() - 2, 4, 4);
+		}
 	}
 	 
 	@Override
@@ -49,21 +57,22 @@ public class Line extends Shape{
 	
 	@Override
 	public int compareTo(Object o) {
-		if(o instanceof Line)
-			return (int) (this.length() - ((Line)o).length());
+		if (o instanceof Line) {
+			return (int)(this.length() - ((Line) o).length());
+		}
 		return 0;
+	}
+	
+
+	@Override
+	public void moveTo(int x, int y) {
+		
 	}
 
 	@Override
 	public void moveBy(int byX, int byY) {
 		startPoint.moveBy(byX, byY);
 		endPoint.moveBy(byX, byY);
-	}
-
-	@Override
-	public void moveTo(int x, int y) {
-		// TODO Auto-generated method stub
-
 	}
 	
 	public Point getStartPoint() {
